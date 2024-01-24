@@ -13,11 +13,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <NavBar
-          data={{
-            hrefList: routeList,
-          }}
-        ></NavBar>
+       
         <Providers>{children}</Providers>
       </body>
     </html>

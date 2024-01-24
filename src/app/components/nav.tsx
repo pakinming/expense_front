@@ -1,7 +1,7 @@
 "use client";
 
 import { Link } from "@chakra-ui/next-js";
-import { Container, Flex, Stack, Text } from "@chakra-ui/react";
+import { Box, Center, Container, Flex, Stack, Text } from "@chakra-ui/react";
 import { usePathname } from "next/navigation";
 import { IRoute, routes } from "../constants/routes";
 
@@ -17,27 +17,28 @@ const NavBar = ({ data }: INavBar) => {
 
   return (
     <>
-      <Flex flex={2} alignItems="center" gap="2" pl="40px">
-        <Stack direction="row" alignItems="center" gap="40px" spacing="0px">
+      <Flex flex={2} alignItems="center">
+        <Stack direction="row" alignItems="center" gap="40px" spacing="10px">
           {hrefList.map(({ key, value }, index) => {
-            const isSelected = pathname === `value`;
+            const isSelected = pathname === value;
 
             return (
-              <Container key={`nav_container_${index}`}>
-
-               
-                <Link href={value} key={`nav_link_${index}`}>
-                  <Text
-                    fontSize={{
-                      base: "16px",
-                      md: "40px",
-                      lg: "56px",
-                      xl: "60px",
-                    }}
+              <Container key={`nav_container_${index}`} alignContent={"center"}>
+                <Link
+                  href={value}
+                  key={`nav_link_${index}`}
+                  style={{
+                    cursor: "pointer",
+                    display: "flex",
+                    textDecoration: "none",
+                  }}
+                >
+                  <Box
+                    fontSize={{ base: "small", lg: "xx-large" }}
                     color={isSelected ? "peru" : "GrayText"}
                   >
                     {key}
-                  </Text>
+                  </Box>
                 </Link>
               </Container>
             );
