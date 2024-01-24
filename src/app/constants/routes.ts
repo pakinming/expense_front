@@ -1,9 +1,14 @@
+export interface IRoute {
+  key: string;
+  value: string;
+}
 export const routes = {
-  root: "/",
-  create: "create",
-  edit: "edit",
-  history: "history",
+  home: "/",
+  create: "/create",
+  edit: "/edit",
+  history: "/history",
+
 };
 
-export const routeList =  Object.values(routes);
 
+export const routeList: IRoute[] = Object.entries(routes).map(([key, value]) => ({ key, value }));

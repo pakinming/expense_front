@@ -4,8 +4,6 @@ import { Link } from '@chakra-ui/next-js'
 
 export default function Page() {
   return (
-    <>
-    <div>Hi Home page</div>
-    </>
+    <div>Hi Edit page</div>
   )
 }
