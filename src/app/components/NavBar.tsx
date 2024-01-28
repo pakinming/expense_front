@@ -1,9 +1,9 @@
 "use client";
 
 import { Link } from "@chakra-ui/next-js";
-import { Box, Center, Container, Flex, Stack, Text } from "@chakra-ui/react";
+import { Box, Container, Flex, Stack } from "@chakra-ui/react";
 import { usePathname } from "next/navigation";
-import { IRoute, routes } from "../constants/routes";
+import { IRoute } from "../constants/routes";
 
 interface INavBar {
   data: {
@@ -17,7 +17,7 @@ const NavBar = ({ data }: INavBar) => {
 
   return (
     <>
-      <Flex flex={2} alignItems="center">
+      <Flex flex={2} alignItems="center" justifyContent={"center"} mt={"3rem"}>
         <Stack direction="row" alignItems="center" gap="40px" spacing="10px">
           {hrefList.map(({ key, value }, index) => {
             const isSelected = pathname === value;
@@ -35,7 +35,7 @@ const NavBar = ({ data }: INavBar) => {
                 >
                   <Box
                     fontSize={{ base: "small", lg: "xx-large" }}
-                    color={isSelected ? "peru" : "GrayText"}
+                    color={isSelected ? "primary" : "gray"}
                   >
                     {key}
                   </Box>

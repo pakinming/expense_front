@@ -1,7 +1,7 @@
 
 import * as React from 'react'
 
-import NavBar from "./components/nav";
+import NavBar from "./components/NavBar";
 import { Providers } from "./providers";
 import { routeList } from "@/app/constants/routes";
 

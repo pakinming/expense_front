@@ -7,8 +7,13 @@ export const routes = {
   create: "/create",
   edit: "/edit",
   history: "/history",
-
 };
 
+export const routeList: IRoute[] = Object.entries(routes).map(
+  ([key, value]) => ({ key, value })
+);
 
-export const routeList: IRoute[] = Object.entries(routes).map(([key, value]) => ({ key, value }));
+export const apiPath = {
+  expanse: `/expanse`,
+  history: `/history`,
+};
