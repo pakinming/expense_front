@@ -2,29 +2,19 @@
 
 "use client";
 
-import { IExpense, IGetListExpense } from "@/app/@types/expense-type";
-import { Box, Button } from "@chakra-ui/react";
-import { useEffect, useRef, useState } from "react";
+import { IExpense } from "@/app/@types/expense-type";
+import { Box, Center, Text } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { IGetAll } from "./@types/get-all";
 import { TableCustom } from "./components/TableCustom";
-import { revalidatePath } from "next/cache";
-import { HtmlProps } from "next/dist/shared/lib/html-context.shared-runtime";
-import { useRouter } from "next/router";
+import { getAllExpense } from "./services/expense-service";
 
-type Props = {};
-
-export default function Page({}: Props) {
-  const [expendList, setDataList] = useState<IGetListExpense>();
-
-  const onclick = async () => {
-    await fetch("/api/expense");
-
-    console.count("click");
-  };
-
+export default function Page() {
+  const [expendList, setDataList] = useState<IGetAll<IExpense>>();
 
   const inti = async () => {
-    const res = await fetch("/api/expense");
-    const { data } = await res.json();
+    const res = await getAllExpense();
+    const { data } = await res.data;
     console.log(data);
     setDataList(data);
   };
@@ -35,12 +25,25 @@ export default function Page({}: Props) {
 
   return (
     <>
-      <Button color={"text_line"} colorScheme="blue" onClick={() => onclick()}>
-        Click Me! - {expendList?.totalPages} -
-      </Button>
-      <Box> SUMMARY EXPEND {expendList?.expendSummary}</Box>
-      {/* - {expendList?.content[0].expend} - */}
-      <TableCustom data={expendList?.content}></TableCustom>
+      <Center>
+        <Box
+          h={10}
+          w={"500px"}
+          bg={"orange"}
+          m={10}
+          textAlign={"center"}
+          justifyContent={"center"}
+        >
+          <Text fontSize={20} fontWeight={600}>
+            SUMMARY EXPEND: {expendList?.expendSummary}
+            {" ฿"}
+          </Text>
+        </Box>
+      </Center>
+
+      <Center>
+        <TableCustom data={expendList?.content}></TableCustom>
+      </Center>
     </>
   );
 }

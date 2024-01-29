@@ -36,6 +36,7 @@ const BaseModal = ({
         margin={15}
         borderRadius={borderRadius}
         maxHeight="90%"
+        
       >
         <ModalBody padding={0} borderRadius="1rem" overflow="auto">
           {children}
@@ -46,18 +47,10 @@ const BaseModal = ({
           flexDirection="column"
           gap="24px"
         >
-          {/* <Divider color="line" /> */}
-          {onClickSave ? (
-            <Flex gap="16px">
-              {onClickSave && (
-                <Button variant="outline2" onClick={onClickSave}>
-                  Confirm
-                </Button>
-              )}
-            </Flex>
-          ) : (
-            <Button onClick={props.onClose}>ปิดหน้าต่าง</Button>
-          )}
+          <Flex gap="16px">
+            <Button onClick={onClickSave} bg={'lightcoral'} color={'white'}>CONFIRM</Button>
+            <Button onClick={props.onClose} autoFocus>CANCEL</Button>
+          </Flex>
         </ModalFooter>
       </ModalContent>
     </Modal>

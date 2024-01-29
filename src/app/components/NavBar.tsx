@@ -3,7 +3,7 @@
 import { Link } from "@chakra-ui/next-js";
 import { Box, Container, Flex, Stack } from "@chakra-ui/react";
 import { usePathname } from "next/navigation";
-import { IRoute } from "../constants/routes";
+import { IRoute, routes } from "../constants/routes";
 
 interface INavBar {
   data: {
@@ -20,6 +20,10 @@ const NavBar = ({ data }: INavBar) => {
       <Flex flex={2} alignItems="center" justifyContent={"center"} mt={"3rem"}>
         <Stack direction="row" alignItems="center" gap="40px" spacing="10px">
           {hrefList.map(({ key, value }, index) => {
+            //ignore
+            if(value === routes.edit){
+              return
+            }
             const isSelected = pathname === value;
 
             return (
@@ -37,7 +41,7 @@ const NavBar = ({ data }: INavBar) => {
                     fontSize={{ base: "small", lg: "xx-large" }}
                     color={isSelected ? "primary" : "gray"}
                   >
-                    {key}
+                    {key.toUpperCase()}
                   </Box>
                 </Link>
               </Container>

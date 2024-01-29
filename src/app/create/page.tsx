@@ -8,17 +8,47 @@ import {
   Input,
   Stack,
   Text,
+  useToast,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { fmtDateYYYYMMDD } from "../utils/datetime";
+import { createExpense } from "../services/expense-service";
+import { ICreateExpense } from "../@types/expense-type";
+
+import { useSearchParams } from "next/navigation";
 
 export default function Page() {
-  var todayDate = new Date().toISOString().slice(0, 10);
+  const searchParams = useSearchParams();
+  const id = searchParams.get("id");
 
   const [selectedDate, setSelectedDate] = useState(fmtDateYYYYMMDD(new Date()));
+  const [expend, setExpend] = useState(0);
+  const [note, setNote] = useState("");
 
   const maxDate = new Date();
   maxDate.setFullYear(maxDate.getFullYear() - 1);
+
+  const onSave = async () => {
+    const body: ICreateExpense = {
+      expend: expend! + 0.0,
+      expendDate: new Date(selectedDate),
+      note: note,
+    };
+    try {
+      const res = await createExpense(body);
+      if (res.status === 200 || res.status === 201) {
+        alert("expend create success");
+        setExpend(0);
+      } else {
+        alert(`fail ${res.data.message}`);
+      }
+      console.log(res);
+    } catch (error) {
+      alert(`fail ${error}`);
+    }
+  };
+
+ 
 
   return (
     <>
@@ -38,18 +68,27 @@ export default function Page() {
               type="date"
               value={selectedDate}
               onChange={(date) => {
-               let isValid =  new Date(date.target.value).getTime() > maxDate.getTime();
-               console.log('isValid', isValid, new Date(selectedDate).getTime() , maxDate.getTime());
+                let isValid =
+                  new Date(date.target.value).getTime() > maxDate.getTime();
+                console.log(
+                  "isValid",
+                  isValid,
+                  new Date(selectedDate).getTime(),
+                  maxDate.getTime()
+                );
 
-                if(isValid){
+                if (isValid) {
                   setSelectedDate(date.target.value);
-
-                }else {
-                  alert('over one year');
+                } else {
+                  alert("over one year");
                 }
               }}
             ></Input>
             <Input
+              value={expend}
+              onChange={(e) => {
+                setExpend(parseFloat(e.target.value));
+              }}
               bgColor={"#EEEDEB"}
               type="number"
               placeholder="0"
@@ -61,6 +100,10 @@ export default function Page() {
               textAlign={"center"}
             />
             <Input
+              value={note}
+              onChange={(e) => {
+                setNote(e.target.value);
+              }}
               type="text"
               placeholder="*Note"
               border={"none"}
@@ -70,7 +113,12 @@ export default function Page() {
               fontWeight={500}
               textAlign={"center"}
             />
-            <Button colorScheme="blue" h={{ md: "80px" }} fontSize={"40px"}>
+            <Button
+              colorScheme="blue"
+              h={{ md: "80px" }}
+              fontSize={"40px"}
+              onClick={onSave}
+            >
               Save
             </Button>
           </Card>

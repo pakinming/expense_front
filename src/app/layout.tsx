@@ -1,9 +1,9 @@
-
-import * as React from 'react'
+import * as React from "react";
 
 import NavBar from "./components/NavBar";
 import { Providers } from "./providers";
 import { routeList } from "@/app/constants/routes";
+import { Container } from "@chakra-ui/react";
 
 export default function RootLayout({
   children,
@@ -13,8 +13,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-       
-        <Providers>{children}</Providers>
+        <Providers>
+          {children}
+          </Providers>
       </body>
     </html>
   );

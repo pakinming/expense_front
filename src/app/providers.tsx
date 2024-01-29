@@ -1,6 +1,6 @@
 "use client";
 
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, Container } from "@chakra-ui/react";
 import theme from "@/app/theme";
 import NavBar from "./components/NavBar";
 import { routeList } from "./constants/routes";

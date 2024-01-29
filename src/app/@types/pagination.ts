@@ -1,4 +1,4 @@
-export interface IPaging {
+export interface IPagination {
   sortBy: string;
   sortDirection: string;
   pageNo: number;

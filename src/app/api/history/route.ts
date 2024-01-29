@@ -1,29 +1,40 @@
+import { IPagination } from "@/app/@types/pagination";
 import { NextRequest, NextResponse } from "next/server";
 
-type Job = {
-  id?: string;
-  message: string;
-};
-let todoList: Job[] = [];
-let count = 0;
 
-// Query
-export async function GET(request: NextRequest): Promise<any> {
+const historyURL = "http://localhost:8081/api/v1/history";
+
+export async function GET(request: NextRequest) {
   const url = new URL(request.url);
 
-  const action = url.searchParams.get("action");
-  if (action == "reset") {
-    todoList = [];
-  }
+  const params = url.search;
 
-  return NextResponse.json(todoList);
+  const res = await fetch(`${historyURL}/${params}`, {
+    method: "GET",
+    mode: "no-cors",
+    headers: {
+      Allow: "*",
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+  });
+
+
+  return res;
 }
 
-// Insert
-export async function POST(request: NextRequest): Promise<any> {
-  const { message }: Job = await request.json();
+export async function DELETE(request: NextRequest) {
+  const url = new URL(request.url);
+  const id = url.searchParams.get("id");
 
-  count++;
-  todoList = [...todoList, { id: count.toString(), message }];
-  return NextResponse.json({ result: "ok" });
+  const res = await fetch(`${historyURL}/${id}`, {
+    method: "DELETE",
+    // mode: "no-cors",
+    headers: {
+      Allow: "*",
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+  });  
+  return res;
 }
