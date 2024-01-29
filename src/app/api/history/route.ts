@@ -2,7 +2,7 @@ import { IPagination } from "@/app/@types/pagination";
 import { NextRequest, NextResponse } from "next/server";
 
 
-const historyURL = "http://localhost:8081/api/v1/history";
+const historyURL = `${process.env.BACKEND_DEV}/api/v1/history`;
 
 export async function GET(request: NextRequest) {
   const url = new URL(request.url);

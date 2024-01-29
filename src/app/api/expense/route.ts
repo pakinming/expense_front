@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const expenseURL = "http://localhost:8081/api/v1/expense";
+const expenseURL = `${process.env.BACKEND_DEV}/api/v1/expense`;
 
 export async function GET(request: NextRequest) {
   const url = new URL(request.url);
